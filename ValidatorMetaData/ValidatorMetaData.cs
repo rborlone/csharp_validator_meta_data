@@ -15,7 +15,7 @@ namespace ValidatorMetaData
                 if (at is MetadataTypeAttribute mdt)
                 {
                     var fields = mdt.MetadataClassType.GetProperties();
-                    foreach (FieldInfo fi in fields)
+                    foreach (var fi in fields)
                     {
                         // Y mostramos los atributos asociados a cada uno de sus campos
                         var cas = fi.GetCustomAttributes(); // ca = Custom Attributes
@@ -49,5 +49,25 @@ namespace ValidatorMetaData
             return resultado;
         }
              
+    }
+
+    // Attributos personalizados
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+    class MostrarAUsuario : Attribute
+    {
+        public readonly bool mostrar;
+        public MostrarAUsuario(bool mostrar = true)
+        {
+            this.mostrar = mostrar;
+        }
+    };
+
+    class ExportarAttribute : Attribute
+    {
+        public readonly bool exportar;
+        public ExportarAttribute(bool exportar = true)
+        {
+            this.exportar = exportar;
+        }
     }
 }
